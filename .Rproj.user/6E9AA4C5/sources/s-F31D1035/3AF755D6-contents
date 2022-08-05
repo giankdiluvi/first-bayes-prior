@@ -1,0 +1,161 @@
+---
+title: "**First Bayes: Histogram**"
+author: ""
+output: 
+  flexdashboard::flex_dashboard:
+    theme: lumen
+    vertical_layout: fill
+    orientation: columns
+runtime: shiny
+---
+
+<style type="text/css">
+
+.sidebar {  /* sidebar  */
+   font-size: 14px;
+   font-family: Helvetica;
+   }
+.navbar-inverse .navbar{
+  font-family: Helvetica;
+}
+.navbar-inverse .navbar-brand{
+  font-family: Helvetica;
+  color: #000000;
+  pointer-events: none;
+}
+</style>
+
+
+
+
+```{r global, include=FALSE, warning = FALSE}
+# preamble ###
+# basics
+library(flexdashboard)
+library(tidyverse)
+# plotting
+library(ggplot2)
+ggplot2::theme_set(theme_classic())
+library(viridis)
+library(patchwork)
+# markdown
+library(knitr)
+library(kableExtra)
+# shiny + html
+library(shiny)
+withMathJax()
+set.seed(2020)
+
+predef_step <- 0.001
+```
+
+
+**Data and likelihood**
+=====================================
+
+
+Column {.sidebar data-width=350}
+-------------------------------------
+
+
+
+**Prior distributions**
+
+Enter the prior distribution of $\mu_V$:
+
+```{r muv}
+
+numericInput("muv1", 
+             label = withMathJax('\\( P(\\mu_V = \\text{R}_1)  \\):'), 
+             value = 0.2, min = 0, max = 1, step  = predef_step)
+
+numericInput("muv2", 
+             label = withMathJax('\\( P(\\mu_V = \\text{R}_2)  \\):'), 
+             value = 0.2, min = 0, max = 1, step  = predef_step)
+
+numericInput("muv3", 
+             label = withMathJax('\\( P(\\mu_V = \\text{R}_3)  \\):'), 
+             value = 0.2, min = 0, max = 1, step  = predef_step)
+
+numericInput("muv4", 
+             label = withMathJax('\\( P(\\mu_V = \\text{R}_4)  \\):'), 
+             value = 0.2, min = 0, max = 1, step  = predef_step)
+
+numericInput("muv5", 
+             label = withMathJax('\\( P(\\mu_V = \\text{R}_5)  \\):'), 
+             value = 0.2, min = 0, max = 1, step  = predef_step)
+```
+
+<hr>
+
+Enter the prior distribution of $\mu_G$:
+
+```{r mug}
+
+numericInput("mug1", 
+             label = withMathJax('\\( P(\\mu_G = \\text{R}_1)  \\):'), 
+             value = 0.2, min = 0, max = 1, step  = predef_step)
+
+numericInput("mug2", 
+             label = withMathJax('\\( P(\\mu_G = \\text{R}_2)  \\):'), 
+             value = 0.2, min = 0, max = 1, step  = predef_step)
+
+numericInput("mug3", 
+             label = withMathJax('\\( P(\\mu_G = \\text{R}_3)  \\):'), 
+             value = 0.2, min = 0, max = 1, step  = predef_step)
+
+numericInput("mug4", 
+             label = withMathJax('\\( P(\\mu_G = \\text{R}_4)  \\):'), 
+             value = 0.2, min = 0, max = 1, step  = predef_step)
+
+numericInput("mug5", 
+             label = withMathJax('\\( P(\\mu_G = \\text{R}_5)  \\):'), 
+             value = 0.2, min = 0, max = 1, step  = predef_step)
+```
+
+
+
+
+
+Column
+-------------------------------------
+
+
+### 
+
+
+
+```{r data.info}
+
+renderPlot({
+
+  # read inputs
+  muv <- rep(0,5)
+  muv[1] <- input$muv1
+  muv[2] <- input$muv2
+  muv[3] <- input$muv3
+  muv[4] <- input$muv4
+  muv[5] <- input$muv5
+  muv <- muv/sum(muv)
+  
+  mug <- rep(0,5)
+  mug[1] <- input$mug1
+  mug[2] <- input$mug2
+  mug[3] <- input$mug3
+  mug[4] <- input$mug4
+  mug[5] <- input$mug5
+  mug <- mug/sum(mug)
+  
+  
+  
+  colors <- c("Prior" = "#482173FF", 
+              "Likelihood" = "#C2DF23FF", 
+              "Posterior" = "#1E9B8AFF")
+  
+  
+  
+    
+  
+
+})
+```
