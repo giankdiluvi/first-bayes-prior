@@ -151,7 +151,7 @@ renderPlot({
   muv_hist <- tibble(x=1:5, y=muv) %>% 
     ggplot(aes(factor(x),y)) +
     geom_bar(stat = "identity") +
-    scale_x_discrete(labels=c("R1\n(0,3]","R2\n[3,6)","R3\n[6,9)","R4\n[9,12)","R5\n[12,15]")) +
+    scale_x_discrete(labels=c("R1\n[0,3)","R2\n[3,6)","R3\n[6,9)","R4\n[9,12)","R5\n[12,15]")) +
     scale_y_continuous(breaks = 0:10/10, limits = c(0,1)) +
     labs(x = "",
          y = expression(paste("P(",mu[V],"=",R[n],")")),
@@ -163,7 +163,7 @@ renderPlot({
   mug_hist <- tibble(x=1:5, y=mug) %>% 
     ggplot(aes(factor(x),y)) +
     geom_bar(stat = "identity") +
-    scale_x_discrete(labels=c("R1\n(0,3]","R2\n[3,6)","R3\n[6,9)","R4\n[9,12)","R5\n[12,15]")) +
+    scale_x_discrete(labels=c("R1\n[0,3)","R2\n[3,6)","R3\n[6,9)","R4\n[9,12)","R5\n[12,15]")) +
     scale_y_continuous(breaks = 0:10/10, limits = c(0,1)) +
     labs(x = "",
          y = expression(paste("P(",mu[G],"=",R[n],")")),
