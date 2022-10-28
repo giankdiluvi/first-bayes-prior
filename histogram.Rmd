@@ -61,55 +61,55 @@ Column {.sidebar data-width=350}
 
 **Prior distributions**
 
-Enter the prior distribution of $\mu_V$:
+Enter the prior distribution of $M_V$:
 
 ```{r muv}
 
-numericInput("muv1", 
-             label = withMathJax('\\( P(\\mu_V = \\text{R}_1)  \\):'), 
+numericInput("Mv1", 
+             label = withMathJax('\\( P(M_V = \\text{Very low})  \\):'), 
              value = 0.2, min = 0, max = 1, step  = predef_step)
 
-numericInput("muv2", 
-             label = withMathJax('\\( P(\\mu_V = \\text{R}_2)  \\):'), 
+numericInput("Mv2", 
+             label = withMathJax('\\( P(M_V = \\text{Low})  \\):'), 
              value = 0.2, min = 0, max = 1, step  = predef_step)
 
-numericInput("muv3", 
-             label = withMathJax('\\( P(\\mu_V = \\text{R}_3)  \\):'), 
+numericInput("Mv3", 
+             label = withMathJax('\\( P(M_V = \\text{Medium})  \\):'), 
              value = 0.2, min = 0, max = 1, step  = predef_step)
 
-numericInput("muv4", 
-             label = withMathJax('\\( P(\\mu_V = \\text{R}_4)  \\):'), 
+numericInput("Mv4", 
+             label = withMathJax('\\( P(M_V = \\text{High})  \\):'), 
              value = 0.2, min = 0, max = 1, step  = predef_step)
 
-numericInput("muv5", 
-             label = withMathJax('\\( P(\\mu_V = \\text{R}_5)  \\):'), 
+numericInput("Mv5", 
+             label = withMathJax('\\( P(M_V = \\text{Very high})  \\):'), 
              value = 0.2, min = 0, max = 1, step  = predef_step)
 ```
 
 <hr>
 
-Enter the prior distribution of $\mu_G$:
+Enter the prior distribution of $M_G$:
 
 ```{r mug}
 
-numericInput("mug1", 
-             label = withMathJax('\\( P(\\mu_G = \\text{R}_1)  \\):'), 
+numericInput("Mg1", 
+             label = withMathJax('\\( P(M_G = \\text{Very low})  \\):'), 
              value = 0.2, min = 0, max = 1, step  = predef_step)
 
-numericInput("mug2", 
-             label = withMathJax('\\( P(\\mu_G = \\text{R}_2)  \\):'), 
+numericInput("Mg2", 
+             label = withMathJax('\\( P(M_G = \\text{Low})  \\):'), 
              value = 0.2, min = 0, max = 1, step  = predef_step)
 
-numericInput("mug3", 
-             label = withMathJax('\\( P(\\mu_G = \\text{R}_3)  \\):'), 
+numericInput("Mg3", 
+             label = withMathJax('\\( P(M_G = \\text{Medium})  \\):'), 
              value = 0.2, min = 0, max = 1, step  = predef_step)
 
-numericInput("mug4", 
-             label = withMathJax('\\( P(\\mu_G = \\text{R}_4)  \\):'), 
+numericInput("Mg4", 
+             label = withMathJax('\\( P(M_G = \\text{High})  \\):'), 
              value = 0.2, min = 0, max = 1, step  = predef_step)
 
-numericInput("mug5", 
-             label = withMathJax('\\( P(\\mu_G = \\text{R}_5)  \\):'), 
+numericInput("Mg5", 
+             label = withMathJax('\\( P(M_G = \\text{Very high})  \\):'), 
              value = 0.2, min = 0, max = 1, step  = predef_step)
 ```
 
@@ -130,49 +130,49 @@ Column
 renderPlot({
 
   # read inputs
-  muv <- rep(0.2,5)
-  muv[1] <- input$muv1
-  muv[2] <- input$muv2
-  muv[3] <- input$muv3
-  muv[4] <- input$muv4
-  muv[5] <- input$muv5
-  muv <- muv/sum(muv)
+  Mv <- rep(0.2,5)
+  Mv[1] <- input$Mv1
+  Mv[2] <- input$Mv2
+  Mv[3] <- input$Mv3
+  Mv[4] <- input$Mv4
+  Mv[5] <- input$Mv5
+  Mv <- Mv/sum(Mv)
   
-  mug <- rep(0.2,5)
-  mug[1] <- input$mug1
-  mug[2] <- input$mug2
-  mug[3] <- input$mug3
-  mug[4] <- input$mug4
-  mug[5] <- input$mug5
-  mug <- mug/sum(mug)
+  Mg <- rep(0.2,5)
+  Mg[1] <- input$Mg1
+  Mg[2] <- input$Mg2
+  Mg[3] <- input$Mg3
+  Mg[4] <- input$Mg4
+  Mg[5] <- input$Mg5
+  Mg <- Mg/sum(Mg)
   
   
-  # muv histogram
-  muv_hist <- tibble(x=1:5, y=muv) %>% 
+  # Mv histogram
+  Mv_hist <- tibble(x=1:5, y=Mv) %>% 
     ggplot(aes(factor(x),y)) +
     geom_bar(stat = "identity") +
-    scale_x_discrete(labels=c("R1\n[0,3)","R2\n[3,6)","R3\n[6,9)","R4\n[9,12)","R5\n[12,15]")) +
+    scale_x_discrete(labels=c("Very low\n[0,3)","Low\n[3,6)","Medium\n[6,9)","High\n[9,12)","Very high\n[12,15]")) +
     scale_y_continuous(breaks = 0:10/10, limits = c(0,1)) +
     labs(x = "",
-         y = expression(paste("P(",mu[V],"=",R[n],")")),
-         title = expression(paste("Histogram of ", mu[V], " prior distribution"))) +
+         y = expression(paste("P(",M[V],"=",m,")")),
+         title = expression(paste("Histogram of ", M[V], " prior distribution"))) +
     theme(text = element_text(size = 16))
   
   
-  # mug histogram
-  mug_hist <- tibble(x=1:5, y=mug) %>% 
+  # Mg histogram
+  Mg_hist <- tibble(x=1:5, y=Mg) %>% 
     ggplot(aes(factor(x),y)) +
     geom_bar(stat = "identity") +
-    scale_x_discrete(labels=c("R1\n[0,3)","R2\n[3,6)","R3\n[6,9)","R4\n[9,12)","R5\n[12,15]")) +
+    scale_x_discrete(labels=c("Very low\n[0,3)","Low\n[3,6)","Medium\n[6,9)","High\n[9,12)","Very high\n[12,15]")) +
     scale_y_continuous(breaks = 0:10/10, limits = c(0,1)) +
     labs(x = "",
-         y = expression(paste("P(",mu[G],"=",R[n],")")),
-         title = expression(paste("Histogram of ", mu[G], " prior distribution"))) +
+         y = expression(paste("P(",M[G],"=",m,")")),
+         title = expression(paste("Histogram of ", M[G], " prior distribution"))) +
     theme(text = element_text(size = 16))
   
   
   
-    muv_hist / mug_hist
+    Mv_hist / Mg_hist
   
 
 })
